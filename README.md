@@ -11,13 +11,13 @@ pip install -r requirements.txt
 
 ### Run summarizer:
 ```
-python khmer-text-summarizer.py -f [file-name] -t [number of summarize sentences]
+python khmer-text-summarizer.py -f [file-name] -l [number of summarize sentences]
 ```
 
 ### Example
 
 ```
-python khmer-text-summarizer.py -f khmer.txt -t 1
+python khmer-text-summarizer.py -f khmer.txt -l 1
 ```
 
 

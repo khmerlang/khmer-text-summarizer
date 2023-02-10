@@ -1,3 +1,4 @@
+import argparse
 import numpy as np
 from math import sqrt
 import networkx as nx
@@ -97,4 +98,17 @@ def generate_summary(file_name, top_n=5):
     return "។ ".join(summarize_text).replace("។។", "។").replace(" ។", "។")
 
 
-print(generate_summary( "khmer.txt", 1))
+if __name__ == "__main__": 
+    # Initialize parser
+    parser = argparse.ArgumentParser()
+    
+    # Adding optional argument
+    parser.add_argument("-f", "--file", help = "File input", required=True)
+    parser.add_argument("-l", "--line", help = "Number of line", default="2")
+    
+    # Read arguments from command line
+    args = parser.parse_args()
+    file_name = args.file
+    line = int(args.line)
+
+    print(generate_summary(file_name, line))
