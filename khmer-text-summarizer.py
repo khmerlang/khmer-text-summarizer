@@ -13,20 +13,26 @@ def cosine_distance(u, v):
 
 def read_article(file_name):
     """
+    Read text from file.
+    Return list [setences[words]]
     """
     file = open(file_name, "r")
-    filedata = file.readlines()
-    article = sentence_tokenize(filedata[0])
+    lines_data = file.readlines()
     sentences = []
-
-    for sentence in article:
-        print(sentence)
-        sentences.append(word_tokenize(sentence, return_tokens=True))
-    sentences.pop() 
+    for line in lines_data:
+        line = line.strip()
+        if len(line) > 0:
+            line_sentences = sentence_tokenize(line)
+            for sentence in line_sentences:
+                sentences.append(word_tokenize(sentence, return_tokens=True))
 
     return sentences
 
 def sentence_similarity(sent1, sent2, stopwords=None):
+    """
+    Return similarity scoring between two sentences
+    """
+
     if stopwords is None:
         stopwords = []
  
@@ -82,7 +88,7 @@ def generate_summary(file_name, top_n=5):
 
     # Step 4 - Sort the rank and pick top sentences
     ranked_sentence = sorted(((scores[i],s) for i,s in enumerate(sentences)), reverse=True)    
-    print("Indexes of top ranked_sentence order are ", ranked_sentence)    
+    # print("Indexes of top ranked_sentence order are ", ranked_sentence)    
 
     for i in range(top_n):
       summarize_text.append("​".join(ranked_sentence[i][1]))
@@ -91,4 +97,4 @@ def generate_summary(file_name, top_n=5):
     return "។ ".join(summarize_text).replace("។។", "។").replace(" ។", "។")
 
 
-print(generate_summary( "khmer.txt", 2))
+print(generate_summary( "khmer.txt", 1))
