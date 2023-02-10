@@ -29,6 +29,11 @@ def read_article(file_name):
 
     return sentences
 
+def read_stop_words():
+    with open("stopwords.txt", "r") as file:
+        lines_data = file.read().split("\n")
+    return lines_data
+
 def sentence_similarity(sent1, sent2, stopwords=None):
     """
     Return similarity scoring between two sentences
@@ -74,7 +79,7 @@ def build_similarity_matrix(sentences, stop_words):
 
 def generate_summary(file_name, top_n=5):
     # load stopwords
-    stop_words = []
+    stop_words = read_stop_words()
     summarize_text = []
 
     # Step 1 - Read text anc split it
@@ -88,8 +93,8 @@ def generate_summary(file_name, top_n=5):
     scores = nx.pagerank(sentence_similarity_graph)
 
     # Step 4 - Sort the rank and pick top sentences
-    ranked_sentence = sorted(((scores[i],s) for i,s in enumerate(sentences)), reverse=True)    
-    # print("Indexes of top ranked_sentence order are ", ranked_sentence)    
+    ranked_sentence = sorted(((scores[i],s) for i,s in enumerate(sentences)), reverse=True)
+    # print("Indexes of top ranked_sentence order are ", ranked_sentence)
 
     for i in range(top_n):
       summarize_text.append("​".join(ranked_sentence[i][1]))
